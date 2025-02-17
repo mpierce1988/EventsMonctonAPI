@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 router = APIRouter(
-    prefix="/healthcheck"
+    prefix="/v1/healthcheck"
 )
 
 @router.get("/")

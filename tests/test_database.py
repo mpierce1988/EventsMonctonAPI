@@ -1,6 +1,7 @@
 from app.db.database import get_db
 from app.db.models import Event
 from datetime import datetime
+from app.core import utilities
 
 def test_get_db(db_session):
     db = next(get_db())  # Gets next item from iterator (get_db() has a yield)
@@ -17,6 +18,8 @@ def test_create_event(db_session):
         "link": "https://chocolatmoncton.com/"
     }
 
+    event_data['hash'] = utilities.calculate_row_hash(event_data)
+
     event = Event(**event_data)
     db_session.add(event)
     db_session.commit()
@@ -29,4 +32,5 @@ def test_create_event(db_session):
     assert stored_event.cost == event_data["cost"]
     assert stored_event.link_type == event_data["link_type"]
     assert stored_event.link == event_data["link"]
+    assert stored_event.hash == event_data['hash']
     assert stored_event.id is not None

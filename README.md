@@ -7,3 +7,9 @@
 ```bash
 fastapi dev app/main.py
 ```
+
+## Run Tests
+
+```bash
+pytest tests
+```
